@@ -14,8 +14,8 @@ https://public.tableau.com/app/profile/fakayode.emmanuel/viz/MusicStreamingChurn
 - [DATA TRANSFORMATION](#data-transformation)
 - [ANALYSIS](#analysis)
 - [DASHBOARD LINK](#dashboard-link)
-- [RECOMMENDATIONS](#recommendations)
 - [CONCLUSION](#conclusion)
+- [RECOMMENDATIONS](#recommendations)
 
 
 ## INTRODUCTION
@@ -138,7 +138,7 @@ I initially used Python to calculate these columns, but later transitioned to SQ
 | USER-00002 | Family Plan         | 9/6/2021    | 10/31/2021 | 14.99 | 5      |                |
 | USER-00003 | Individual Premium  | 2/18/2021   | 4/15/2021  | 9.99  | 4      |                |
 
--- Using window functions to calculate next plan start
+
 -- Using window functions to calculate next plan start
 WITH plan_ranks AS (
   SELECT *,
@@ -211,28 +211,28 @@ FROM classified;
 import pandas as pd
 import numpy as np
 
-# Load your data
+-- Load your data
 df = pd.read_csv("plan_history_raw_data.csv")  # Replace with your actual data path
 
-# Ensure date columns are in datetime format
+-- Ensure date columns are in datetime format
 df['Start_Date'] = pd.to_datetime(df['Start_Date'])
 df['End_Date'] = pd.to_datetime(df['End_Date'])
 
-# Sort by user and start date
+-- Sort by user and start date
 df = df.sort_values(['User_ID', 'Start_Date'])
 
-# Compute lead columns (next plan's start date and price)
+-- Compute lead columns (next plan's start date and price)
 df['Next_Start_Date'] = df.groupby('User_ID')['Start_Date'].shift(-1)
 df['Next_Price'] = df.groupby('User_ID')['Price'].shift(-1)
 
-# Row number per user
+-- Row number per user
 df['rn'] = df.groupby('User_ID').cumcount() + 1
 
-# Duration to renew
+-- Duration to renew
 df['Duration_to_Renew'] = (df['Next_Start_Date'] - df['End_Date']).dt.days
 df['Duration_to_Renew'] = df['Duration_to_Renew'].fillna((pd.Timestamp.today() - df['End_Date']).dt.days)
 
-# Churn Status
+-- Churn Status
 def classify_status(end, duration):
     if pd.isna(end):
         return 'Active'
@@ -247,10 +247,10 @@ def classify_status(end, duration):
 
 df['Churn_Status'] = df.apply(lambda row: classify_status(row['End_Date'], row['Duration_to_Renew']), axis=1)
 
-# Churn Reason fix (null becomes "")
+-- Churn Reason fix (null becomes "")
 df['Churn_Reason'] = df['Churn_Reason'].fillna('')
 
-# Churn Type
+-- Churn Type
 def get_churn_type(row):
     if row['Churn_Status'] != 'Churned':
         return 'No Churn'
@@ -265,13 +265,13 @@ def get_churn_type(row):
 
 df['Churn_Type'] = df.apply(get_churn_type, axis=1)
 
-# New?
+-- New?
 df['New?'] = df['rn'].apply(lambda x: 1 if x == 1 else 0)
 
-# Downgrade churn?
+-- Downgrade churn?
 df['Downgrade churn?'] = (df['Price'] > df['Next_Price']).astype(int)
 
-# Lost Revenue
+-- Lost Revenue
 def get_lost_revenue(row):
     if row['Churn_Status'] != 'Churned':
         return 0
@@ -286,7 +286,7 @@ def get_lost_revenue(row):
 
 df['Lost_Revenue'] = df.apply(get_lost_revenue, axis=1)
 
-# Final selected columns
+-- Final selected columns
 final_df = df[[
     'User_ID', 'Plan', 'Start_Date', 'End_Date', 'Price', 'Rating',
     'Churn_Reason', 'Churn_Type', 'New?', 'Downgrade churn?', 
