@@ -46,15 +46,15 @@ The primary goals of this project are to:
 1. Detect Different Types of Churn
 Accurately identify and classify churn events as:
 
-- Complete Churn – when a user has not renewed their subscription or streamed after certain days.
-- Downgrade Churn – when a user switches from a premium to less expensive/free plan.
-- No Churn.
+     - Complete Churn – when a user has not renewed their subscription or streamed after certain days.
+     - Downgrade Churn – when a user switches from a premium to less expensive/free plan.
+     - No Churn.
 
 2. Track Subscriber Activity Dynamically
 Build a system that allows monthly tracking of:
-- Active users
-= New subscribers
-- Churned and at-risk users
+    - Active users
+    - New subscribers
+    - Churned and at-risk users
 
 3. Quantify Revenue Loss
 Calculate lost revenue based on user exit or downgrade behavior, enabling smarter financial decisions and retention strategies.
@@ -138,76 +138,83 @@ I initially used Python to calculate these columns, but later transitioned to SQ
 | USER-00002 | Family Plan         | 9/6/2021    | 10/31/2021 | 14.99 | 5      |                |
 | USER-00003 | Individual Premium  | 2/18/2021   | 4/15/2021  | 9.99  | 4      |                |
 
+```sql
 
--- Using window functions to calculate next plan start
 WITH plan_ranks AS (
-  SELECT *,
-         LEAD(Start_Date) OVER (PARTITION BY User_ID ORDER BY Start_Date) AS Next_Start_Date,
-         LEAD(Price) OVER (PARTITION BY User_ID ORDER BY Start_Date) AS Next_Price,
-         ROW_NUMBER() OVER (PARTITION BY User_ID ORDER BY Start_Date) AS rn,
-         COUNT(*) OVER (PARTITION BY User_ID) AS user_plan_count
-  FROM [dbo].[plan_history raw data]
+    SELECT *,
+           LEAD(Start_Date) OVER (PARTITION BY User_ID ORDER BY Start_Date) AS Next_Start_Date,
+           LEAD(Price) OVER (PARTITION BY User_ID ORDER BY Start_Date) AS Next_Price,
+           ROW_NUMBER() OVER (PARTITION BY User_ID ORDER BY Start_Date) AS rn,
+           COUNT(*) OVER (PARTITION BY User_ID) AS user_plan_count
+    FROM [dbo].[plan_history raw data]
 ),
-
+-- Churn classification logic
 classified AS (
-  SELECT *,
-         CASE 
-           WHEN Next_Start_Date IS NULL THEN DATEDIFF(DAY, End_Date, GETDATE())
-           ELSE DATEDIFF(DAY, End_Date, Next_Start_Date)
-         END AS Duration_to_Renew,
+    SELECT *,
+           CASE 
+               WHEN Next_Start_Date IS NULL THEN DATEDIFF(DAY, End_Date, GETDATE())
+               ELSE DATEDIFF(DAY, End_Date, Next_Start_Date)
+           END AS Duration_to_Renew,
 
-         CASE 
-           WHEN End_Date IS NULL THEN 'Active'
-           WHEN DATEDIFF(DAY, End_Date, Next_Start_Date) BETWEEN 0 AND 20 THEN 'Active'
-           WHEN DATEDIFF(DAY, End_Date, Next_Start_Date) BETWEEN 21 AND 30 THEN 'At Risk'
-           WHEN DATEDIFF(DAY, End_Date, Next_Start_Date) > 30 THEN 'Churned'
-           ELSE 'Active'
-         END AS Churn_Status
-  FROM plan_ranks
+           CASE 
+               WHEN End_Date IS NULL THEN 'Active'
+               WHEN DATEDIFF(DAY, End_Date, Next_Start_Date) BETWEEN 0 AND 20 THEN 'Active'
+               WHEN DATEDIFF(DAY, End_Date, Next_Start_Date) BETWEEN 21 AND 30 THEN 'At Risk'
+               WHEN DATEDIFF(DAY, End_Date, Next_Start_Date) > 30 THEN 'Churned'
+               ELSE 'Active'
+           END AS Churn_Status
+    FROM plan_ranks
 )
 
 SELECT 
-  User_ID,
-  [Plan],
-  Start_Date,
-  End_Date,
-  Price,
-  Rating,
-  ISNULL(Churn_Reason, '') AS Churn_Reason,
+    User_ID,
+    [Plan],
+    Start_Date,
+    End_Date,
+    Price,
+    Rating,
+    ISNULL(Churn_Reason, '') AS Churn_Reason,
 
-  -- Churn Type only if churned
-  ISNULL(
+    -- Churn Type only if churned
+    ISNULL(
+        CASE 
+            WHEN Churn_Status = 'Churned' AND Churn_Reason = 'Billing issues' THEN 'Involuntary Churn'
+            WHEN Churn_Status = 'Churned' AND Price > ISNULL(Next_Price, 0) THEN 'Downgrade Churn'
+            WHEN Churn_Status = 'Churned' AND Next_Start_Date IS NULL THEN 'Complete Churn'
+            WHEN Churn_Status = 'Churned' THEN 'Voluntary Churn'
+            ELSE NULL
+        END,
+        'No Churn'
+    ) AS Churn_Type,
+
     CASE 
-      WHEN Churn_Status = 'Churned' AND Churn_Reason = 'Billing issues' THEN 'Involuntary Churn'
-      WHEN Churn_Status = 'Churned' AND Price > ISNULL(Next_Price, 0) THEN 'Downgrade Churn'
-      WHEN Churn_Status = 'Churned' AND Next_Start_Date IS NULL THEN 'Complete Churn'
-      WHEN Churn_Status = 'Churned' THEN 'Voluntary Churn'
-      ELSE NULL
-    END,
-    'No Churn'
-  ) AS Churn_Type,
+        WHEN rn = 1 THEN 1 
+        ELSE 0 
+    END AS [New?],
 
-  CASE WHEN rn = 1 THEN 1 ELSE 0 END AS [New?],
+    CASE 
+        WHEN Price > ISNULL(Next_Price, 0) THEN 1 
+        ELSE 0 
+    END AS [Downgrade churn?],
 
-  CASE 
-    WHEN Price > ISNULL(Next_Price, 0) THEN 1 
-    ELSE 0 
-  END AS [Downgrade churn?],
+    Duration_to_Renew,
+    Churn_Status,
 
-  Duration_to_Renew,
-  Churn_Status,
-
-  CASE 
-    WHEN Churn_Status = 'Churned' AND Churn_Reason = 'Billing issues' THEN Price
-    WHEN Churn_Status = 'Churned' AND Next_Start_Date IS NULL THEN Price
-    WHEN Churn_Status = 'Churned' AND Price > ISNULL(Next_Price, 0) THEN Price - Next_Price
-    ELSE 0
-  END AS Lost_Revenue
+    CASE 
+        WHEN Churn_Status = 'Churned' AND Churn_Reason = 'Billing issues' THEN Price
+        WHEN Churn_Status = 'Churned' AND Next_Start_Date IS NULL THEN Price
+        WHEN Churn_Status = 'Churned' AND Price > ISNULL(Next_Price, 0) THEN Price - Next_Price
+        ELSE 0
+    END AS Lost_Revenue
 
 FROM classified;
+```
+
+
+
 
 ## PYHON APPROACH
-
+```python
 import pandas as pd
 import numpy as np
 
@@ -295,10 +302,10 @@ final_df = df[[
 
 # Export if needed
 # final_df.to_csv("processed_plan_history.csv", index=False)
+```
 
 ## DATA MODELLING
 The main users table was related to the plan history and streaming log table using the User ID column
-
 
 <img width="722" height="239" alt="image" src="https://github.com/user-attachments/assets/7f343f25-6704-44b9-8d6f-297e905c119c" />
 
