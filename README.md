@@ -315,53 +315,60 @@ I grouped some columns after connecting the data in Tableau
 -  Billing issues and App issues as App/Billing Issues of the churn_reason column
 
 ## ANALYSIS
- **Excecutive Summary Page**
+ **EXECUTIVE SUMMARY PAGE**
+ 
+ **KPIs**
 
-1. Churn Rate
+**1. Churn Rate**
+
 - January 2024 churn rate was 30.2%, which is 11.3% lower than December 2023 — a strong start to the year.
-
+     
 - However, churn peaked in June 2024 at 38%, indicating possible mid-year dissatisfaction or external competition.
-
+     
 - Notably, only 5 out of 12 months in 2024 recorded a churn rate higher than the same month in 2023, suggesting an overall year-on-year improvement in user retention.
 
-2. Lost Revenue
-Lost revenue in January 2024 was $24,011, representing a 15.2% increase from December 2023 — signaling that churned users in early 2024 were on higher-priced plans or more frequent.
+**2. Lost Revenue**
 
-June 2024 recorded the highest lost revenue of the year, aligning with its churn rate peak (38%), suggesting both high volume and value of lost users during that month.
+- Lost revenue in January 2024 was $24,011, representing a 15.2% increase from December 2023 — signaling that churned users in early 2024 were on higher-priced plans or more frequent.
+     
+- June 2024 recorded the highest lost revenue of the year, aligning with its churn rate peak (38%), suggesting both high volume and value of lost users during that month.
 
-Notably, June 2024 was the only month where lost revenue exceeded the same month in 2023, reinforcing a critical spike in customer value loss that demands further investigation.
+- Notably, June 2024 was the only month where lost revenue exceeded the same month in 2023, reinforcing a critical spike in customer value loss that demands further investigation.
 
 The trend implies that while churn rates improved YoY in several months, the financial impact of churn was still significant, particularly when high-value users exited.
 
-3. Active Users
+**3. Active Users**
+
 - January 2024 saw 235 active users, matching December 2023 and surpassing January 2023, indicating stable user engagement entering the year.
 
 - August 2024 recorded the peak with 268 active users, suggesting successful campaigns or high seasonal engagement.
 
 - However, July 2024 had the lowest active users, and along with November, these were the only months in 2024 where active user counts fell below their 2023 equivalents.
 
-4. New Users
+**4. New Users**
+
 - January 2024 marked the strongest month with 104 new users, showing a 33.3% increase from December 2023 and 9.5% higher than January 2023 — a sign of strong onboarding and acquisition efforts at the beginning of the year.
 
 - February 2024 saw the lowest intake, with just 81 new users, potentially due to a post-holiday slowdown or less aggressive outreach.
 
 - Interestingly, June 2024 was the only month where new user acquisition fell below its corresponding month in 2023, which may indicate challenges in campaign effectiveness or market saturation during that period.
 
-**THE CHARTS**
+**CHARTS**
 1. **Active & Churned Users by State**
 
 A few states stood out with relatively high churn ratios:
-
 - Indiana: Had 4 churned users and 6 active users, implying a churn rate of 40%, which is significantly higher than average and may suggest localized dissatisfaction or poor user engagement.
-
 - Massachusetts: With 2 churned users and 5 active, also shows a relatively high churn proportion (~28.6%).
 - Missouri, Iowa, New Mexico and Georgia all reported good numbers of active users with no churned users.
 
-2. Churn Types
+**2. Churn Types**
+
    There were 58 complete churns (i.e Voluntary $ Involuntary churns) compared to 13 downgrade churns
 
-3. Monthly Churn Rate By First Plan Cohort Analysis
+**3. Monthly Churn Rate By First Plan Cohort Analysis**
+
 - In 2024, the highest concentration of resubscriptions occurred in Month+3 (April), where 44% of users who eventually returned chose to do so three months after their first plan.
+     
 - The highest resubscription activity occurred in Month+2 and Month+3, each accounting for 27% of returns.
   This means that most users who come back do so 2–3 months after their initial subscription ended.
 
@@ -372,19 +379,26 @@ A few states stood out with relatively high churn ratios:
 **Churn Pattern Page**
 1. I analyzed churn
 
-- By Plan: The Family Plan has the highest churn with 852 users, followed by Individual Premium (832), Annual Premium (822), Student Premium (734), and Free (Ad-Supported) with the lowest at 573.
-- By Reason: App/Billing issues lead with 1,260 cases, followed by Available genres (645), Too expensive (631), Limited downloads (627), and Switched service (616).
-- By Age: The 35-44 age group has the highest churn at 668, followed by 45-54 (626), 25-34 (656), 18-24 (422), and 55-64 (596).
-- By Types: Voluntary churn is the most significant at 1,985, followed by Involuntary (952), Downgrade (604) churn.
+- **By Plan:** The Family Plan has the highest churn with 852 users, followed by Individual Premium (832), Annual Premium (822), Student Premium (734), and Free (Ad-Supported) with the lowest at 573.
+- **By Reason:** App/Billing issues lead with 1,260 cases, followed by Available genres (645), Too expensive (631), Limited downloads (627), and Switched service (616).
+- **By Age:** The 35-44 age group has the highest churn at 668, followed by 45-54 (626), 25-34 (656), 18-24 (422), and 55-64 (596).
+- **By Types:** Voluntary churn is the most significant at 1,985, followed by Involuntary (952), Downgrade (604) churn.
 
-2. New VS Churned Subscribers
+**2. New VS Churned Subscribers**
+
 The data shows that new subscribers generally outnumber churned subscribers across the observed periods, except for specific months: August 2021, December 2023, and June 2024. This suggests that, despite these exceptions, the influx of new subscribers is typically sufficient to replace those who churn, maintaining overall stability.
-3. At-Risk Subscribers
+
+**3. At-Risk Subscribers**
+
 Using dynamic SQL churn classification per period, I successfully identified customers with a high likelihood of churning. These at-risk subscribers have been compiled into an exportable list for bulk email campaigns, or individual reminders can be sent by clicking the bell icon next to each name.
-<img width="797" height="625" alt="image" src="https://github.com/user-attachments/assets/7a2349c7-d18a-498e-ab58-f802d03d104d" />
+
+<table> <tr> <th style="text-align:center">List in tableau</th> <th style="text-align:center">Exported List</th> </tr> <tr> <td align="center"><img src="https://github.com/user-attachments/assets/7a2349c7-d18a-498e-ab58-f802d03d104d")
+" width="400"/></td> <td align="center"><img src="https://github.com/user-attachments/assets/eb0195da-d949-4818-a667-a359c24c8992")
+" width="400"/></td> </tr> </table>
 
 **Details Page**
-"Details" tab provides a detailed profile view with options to select subscribers via checkboxes and filter icon for further action. It includes key data such as join date, age, location, Customer lifetime value, last stream date, subscription count, most common plan, average rating, and plan history visualized in a timeline chart. Users can filter subscribers by region (North, East, South, West). The interface shows the list of the other subscribers.
+
+Provides a detailed profile view with options to select subscribers via checkboxes and filter icon for further action. It includes key data such as join date, age, location, Customer lifetime value, last stream date, subscription count, most common plan, average rating, and plan history visualized in a timeline chart. Users can filter subscribers by region (North, East, South, West). The interface shows the list of the other subscribers.
 
 ## DAHBOARD LINK
 https://public.tableau.com/app/profile/fakayode.emmanuel/viz/MusicStreamingChurn/MusicStreamingChurn
@@ -392,20 +406,20 @@ https://public.tableau.com/app/profile/fakayode.emmanuel/viz/MusicStreamingChurn
 ## CONCLUSION
 The analysis across the Executive Summary, Charts, Churn Pattern, and Details pages reveals a nuanced story of user behavior in 2024:
 
-1. Churn is Improving Overall, but there are spikes:
+**1. Churn is Improving Overall, but there are spikes:**
 
 - Churn rate improved year-over-year in most months, especially in early 2024.
 - Revenue Impact is Not Always Aligned with Churn Volume:
-> Even when churn counts are not high, the financial impact can still be significant if high-value users are leaving.
-> June 2024, for instance, had fewer new users and higher churned revenue than the previous year — showing a double-loss scenario.
+     > Even when churn counts are not high, the financial impact can still be significant if high-value users are leaving.
+     > June 2024, for instance, had fewer new users and higher churned revenue than the previous year — showing a double-loss scenario.
 
-2. Resubscription Patterns Show a Window of Opportunity:
+**2. Resubscription Patterns Show a Window of Opportunity:**
 
 - The cohort analysis indicates that most returning users come back within 2–3 months after their initial subscription.
 
 - Month+3 (April) was especially important in 2024, capturing 44% of returning users, highlighting a clear window for re-engagement strategies.
 
-4. Churn by Demographics and Plan Insights:
+**4. Churn by Demographics and Plan Insights:**
 
 - The Family Plan had the highest churn volume, suggesting either a mismatch in value delivery or usability concerns for shared accounts.
 
@@ -413,46 +427,52 @@ The analysis across the Executive Summary, Charts, Churn Pattern, and Details pa
 
 - App/Billing Issues and Content Limitations were top churn reasons, implying technical and value-perception issues remain core drivers of dissatisfaction.
 
-5. Geographic & Behavioral Variability Matters:
+**5. Geographic & Behavioral Variability Matters:**
 
 - Certain states like Indiana and Massachusetts have unusually high churn rates and should be prioritized for localized user research.
 
 - States like Missouri and Georgia are doing well with no churn — understanding what works there could inform strategy elsewhere.
 
-6. New vs Churned Trends Remain Largely Favorable:
+**6. New vs Churned Trends Remain Largely Favorable:**
 
 Despite a few outlier months (e.g., June 2024), user acquisition outpaced churn, helping to maintain a stable user base.
 
 ## RECOMENDATIONS
 
-1. Fix Technical Friction
+**1. Fix Technical Friction**
+
 - Prioritize fixing App/Billing issues — the top churn driver.
 - Launch a billing help center or chatbot and simplify payment processes.
 
-2. Leverage the 2–3 Month Resubscription Window
+**2. Leverage the 2–3 Month Resubscription Window**
+
 - Create automated re-engagement workflows:
 - Email nudges at Day 30, Day 60, and Day 90.
 - Offer limited-time return discounts or content previews.
 - Consider adding push notifications or social remarketing 2-3 months after a user's subscription ended.
 
-3. Reduce Voluntary Churn via Value Communication
+**3. Reduce Voluntary Churn via Value Communication**
+
 - Since most churn is voluntary, improve value messaging.
 - Educate users on plan benefits and added features through:
 > In-app tooltips.
 > Onboarding refreshers.
 > Gamified usage milestones.
 
-4. Targeted Interventions for High-Churn Months (e.g., June)
+**4. Targeted Interventions for High-Churn Months (e.g., June)**
+
 - Investigate what changed in June (pricing, app issues, competitor activity).
 - Run exit surveys for June churners.
 - Introduce mid-year loyalty perks or discounts to improve retention.
 
-5. Explore Plan Repackaging
+**5. Explore Plan Repackaging**
+
 Investigate why Family Plans are churning the most:
 - Are users confused by shared logins?
 - Is value not felt across multiple users?
 
-6. Use the At-Risk Export List
+**6. Use the At-Risk Export List**
+
 Activate personalized campaigns for at-risk users before they churn:
 - Incentives.
 - Direct outreach.
