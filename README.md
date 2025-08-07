@@ -12,7 +12,7 @@
 - [SKILLS DEMONSTRATED](#skills-demonstrated)
 - [DATA DICTIONARY](#data-dictionary)
 - [SQL CODE](#sql-code)
-- [Python APPROACH](#python-approach)
+- [PYTHON APPROACH](#python-approach)
 - [DATA MODELLING](#data-MODELLING)
 - [DATA TRANSFORMATION](#data-transformation)
 - [ANALYSIS](#analysis)
