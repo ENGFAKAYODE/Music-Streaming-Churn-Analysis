@@ -8,8 +8,8 @@ https://public.tableau.com/app/profile/fakayode.emmanuel/viz/MusicStreamingChurn
 - [GOALS](#goals)
 - [SKILLS DEMONSTRATED](#skills-demonstrated)
 - [DATA DICTIONARY](#data-dictionary)
-- [SQL Codes](#sql-codes)
-- [Python Approach](#python-approach)
+- [SQL CODE](#sql-code)
+- [Python APPROACH](#python-approach)
 - [DATA MODELLING](#data-MODELLING)
 - [DATA TRANSFORMATION](#data-transformation)
 - [ANALYSIS](#analysis)
@@ -213,7 +213,7 @@ FROM classified;
 
 
 
-## PYHON APPROACH
+## PYTHON APPROACH
 ```python
 import pandas as pd
 import numpy as np
