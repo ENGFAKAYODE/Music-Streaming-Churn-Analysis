@@ -221,6 +221,7 @@ FROM classified;
 | USER-00002 | Family Plan         | 9/6/2021    | 10/31/2021 | 14.99 | 5      |                | 0    | 0                | NULL                | Active        | No Churn          | 0.00          |
 | USER-00003 | Individual Premium  | 2/18/2021   | 4/15/2021  | 9.99  | 4      |                | 1    | 0                | NULL                | Active        | No Churn          | 0.00          |
 
+Dataset link: https://drive.google.com/file/d/1oQlvg95bMHZb3kElCO2d_ta_0vqV70nW/view?usp=sharing
 
 
 ## PYTHON APPROACH
