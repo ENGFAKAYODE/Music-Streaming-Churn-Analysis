@@ -90,7 +90,6 @@ This project leverages three synthetic datasets built from scratch to simulate u
 **1. Main Users** - User Profile Table
 Each row represents a unique user on the platform.
 
-Dataset link: https://drive.google.com/file/d/1q7IGPpBdcGhnrJlnxF8HePXi5OCpJIp7/view?usp=sharing
 
 | Field Name | Type    | Description                   | Example           |
 | ---------- | ------- | ----------------------------- | ----------------- |
@@ -104,9 +103,6 @@ Dataset link: https://drive.google.com/file/d/1q7IGPpBdcGhnrJlnxF8HePXi5OCpJIp7/
 
 **2. Plan_history** - Subcription Plan History Table
 Each row represents one biling cycle for a user
-
-Dataset link: https://drive.google.com/file/d/1p4bZ1P16n4VZX4cthY2L8Jh4mocyEwl4/view?usp=sharing
-
 | Field Name        | Type    | Description                                          | Example            |
 | ----------------- | ------- | ---------------------------------------------------- | ------------------ |
 | User\_ID          | STRING  | Foreign key to main user table                       | USER-00023         |
@@ -124,9 +120,6 @@ Dataset link: https://drive.google.com/file/d/1p4bZ1P16n4VZX4cthY2L8Jh4mocyEwl4/
 | Lost\_Revenue     | FLOAT   | Revenue lost if churned or downgraded                | 5.00               |
 
 **3. Streming Log** - User Streaming Activity Table
-
-Dataset link: https://drive.google.com/file/d/1l-nWtu7_L5IZhxsYKLeJBDCzZBvsmeWG/view?usp=sharing
-
 | Field Name                | Type    | Description                    | Example    |
 | ------------------------- | ------- | ------------------------------ | ---------- |
 | Stream\_Date              | DATE    | Date user streamed content     | 2024-02-12 |
@@ -219,7 +212,14 @@ SELECT
 
 FROM classified;
 ```
-
+**TRANSFORMED PLAN HISTORY DATA**
+| User\_ID   | Plan                | Start\_Date | End\_Date  | Price | Rating | Churn\_Reason  | New? | Downgrade churn? | Duration\_to\_Renew | Churn\_Status | Churn\_Type       | Lost\_Revenue |
+| ---------- | ------------------- | ----------- | ---------- | ----- | ------ | -------------- | ---- | ---------------- | ------------------- | ------------- | ----------------- | ------------- |
+| USER-00001 | Family Plan         | 4/19/2022   | 6/4/2022   | 14.99 | 5      |                | 1    | 1                | 70                  | Churned       | Downgrade Churn   | 14.99         |
+| USER-00001 | Free (Ad-Supported) | 8/13/2022   | 9/13/2022  | 0.00  | 2      | Billing issues | 0    | 0                | NULL                | Churned       | Involuntary Churn | 0.00          |
+| USER-00002 | Annual Premium      | 6/21/2020   | 6/21/2021  | 99.99 | 4      |                | 1    | 1                | 76                  | Churned       | Downgrade Churn   | 85.00         |
+| USER-00002 | Family Plan         | 9/6/2021    | 10/31/2021 | 14.99 | 5      |                | 0    | 0                | NULL                | Active        | No Churn          | 0.00          |
+| USER-00003 | Individual Premium  | 2/18/2021   | 4/15/2021  | 9.99  | 4      |                | 1    | 0                | NULL                | Active        | No Churn          | 0.00          |
 
 
 
