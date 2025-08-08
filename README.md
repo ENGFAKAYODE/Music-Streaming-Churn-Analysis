@@ -90,6 +90,7 @@ This project leverages three synthetic datasets built from scratch to simulate u
 **1. Main Users** - User Profile Table
 Each row represents a unique user on the platform.
 
+Dataset link: https://drive.google.com/file/d/1q7IGPpBdcGhnrJlnxF8HePXi5OCpJIp7/view?usp=sharing
 
 | Field Name | Type    | Description                   | Example           |
 | ---------- | ------- | ----------------------------- | ----------------- |
@@ -103,6 +104,9 @@ Each row represents a unique user on the platform.
 
 **2. Plan_history** - Subcription Plan History Table
 Each row represents one biling cycle for a user
+
+Dataset link: https://drive.google.com/file/d/1p4bZ1P16n4VZX4cthY2L8Jh4mocyEwl4/view?usp=sharing
+
 | Field Name        | Type    | Description                                          | Example            |
 | ----------------- | ------- | ---------------------------------------------------- | ------------------ |
 | User\_ID          | STRING  | Foreign key to main user table                       | USER-00023         |
@@ -120,6 +124,9 @@ Each row represents one biling cycle for a user
 | Lost\_Revenue     | FLOAT   | Revenue lost if churned or downgraded                | 5.00               |
 
 **3. Streming Log** - User Streaming Activity Table
+
+Dataset link: https://drive.google.com/file/d/1l-nWtu7_L5IZhxsYKLeJBDCzZBvsmeWG/view?usp=sharing
+
 | Field Name                | Type    | Description                    | Example    |
 | ------------------------- | ------- | ------------------------------ | ---------- |
 | Stream\_Date              | DATE    | Date user streamed content     | 2024-02-12 |
