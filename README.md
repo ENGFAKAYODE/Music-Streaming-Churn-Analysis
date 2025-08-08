@@ -1,7 +1,7 @@
 # Music-Streaming-Churn-Analysis
   <p align="center">
   <a href="https://public.tableau.com/app/profile/fakayode.emmanuel/viz/MusicStreamingChurn/MusicStreamingChurn">
-    <img src="https://github.com/ENGFAKAYODE/UK-Government-Incomes-And-Outcomes/blob/main/UK%20Government%20Spending%20%26%20Outcomes%20_%20Tableau%20Public_page-0001.jpg" width="500" height="800">
+    <img src="https://public.tableau.com/static/images/Mu/MusicStreamingChurn/MusicStreamingChurn/4_3.png" width="500" height="800">
   </a>
 
 ## TABLE OF CONTENT
