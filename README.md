@@ -1,7 +1,7 @@
 # Music-Streaming-Churn-Analysis
   <p align="center">
   <a href="https://public.tableau.com/app/profile/fakayode.emmanuel/viz/MusicStreamingChurn/MusicStreamingChurn">
-    <img src="https://public.tableau.com/static/images/Mu/MusicStreamingChurn/MusicStreamingChurn/4_3.png" width="500" height="800">
+    <img src="https://github.com/user-attachments/assets/a8712391-748d-4d31-826b-ed5b7d129d27" width="500" height="800">
   </a>
 
 ## TABLE OF CONTENT
